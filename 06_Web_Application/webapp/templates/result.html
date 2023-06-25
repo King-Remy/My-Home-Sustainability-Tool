@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+
+{% block title %} Result {% endblock %}
+
+{% block content%}
+<style>
+  .line1 {
+    background-color: rgb(245, 244, 244);
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  .line2 {
+    padding: 5px;
+    border-radius: 5px;
+  }
+</style>
+
+<div class="contents" style="padding: 74px 25px 72px 25px;">
+  <div class="dm-page-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb-main">
+            <h4 class="text-capitalize breadcrumb-title">Result Summary</h4>
+            <div class="breadcrumb-action justify-content-center flex-wrap">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/"><i class="uil uil-estate"></i>Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card card-default card-md mb-4">
+            <div class="card-header">
+              <h6>Building Information</h6>
+              <a href="/editbuilding?id={{Building.id}}" class="btn btn-primary btn-sm">Edit Building Information</a>
+            </div>
+            <div class="card-body" style="line-height: 40px; font-size: large;">
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line1">
+                <div class="col-md-4"><i class="fa fa-home fa-lg"></i> <b>Project Name: </b>{{Building.projectName}}
+                </div>
+                <div class="col-md-4"><i class="fa fa-location-arrow fa-lg"></i> <b>Property Address: </b>
+                  {{Building.propertyAddress}}</div>
+                <div class="col-md-4"><i class="fa fa-map-marker fa-lg"></i> <b>Post Code: </b>{{Building.postCode}}
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line2">
+                <div class="col-md-4"><i class="fa fa-building fa-lg"></i> <b>Property Type:</b>
+                  {{Building.propertyType}}</div>
+                <div class="col-md-4"><i class="fa fa-fa-plus-square fa-lg"></i> <b>Extensions:
+                  </b>{{Building.extensionCount}}</div>
+                <div class="col-md-4"><i class="fa fa-compass fa-lg"></i> <b>Project Location: </b>
+                  {{Building.projectLocation}}</div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line1">
+                <div class="col-md-4"><i class="fa fa-bell fa-lg"></i> <b>Property Age: </b> {{Building.propertyAge}}
+                </div>
+                <div class="col-md-4"><i class="fa fa-table fa-lg"></i> <b> No. of Floors: </b>{{Building.noofFloors}}
+                </div>
+                <div class="col-md-4"><i class="fa fa-thermometer-empty fa-lg"></i> <b>Indoor Temperature:</b>
+                  {{Building.indoorTemperature}}</div>
+
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line2">
+                <div class="col-md-4"><i class="fa fa-money fa-lg"></i> <b>Energy Tarrif: </b>{{Building.energyTarrif}}
+                </div>
+                <div class="col-md-4"><i class="fa fa-lightbulb-o fa-lg"></i> <b>Lighting Type:</b>
+                  {{Building.lightingType}}</div>
+                <div class="col-md-4"><i class="fa fa-bed fa-lg"></i> <b>No. of Rooms: </b>{{Building.noofRooms}}</div>
+              </div>
+
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line1">
+                <div class="col-md-4"><i class="fa fa-caret-square-o-right fa-lg"></i> <b>Hot Water Heating:</b>
+                  {{Building.hotwaterHeating}}</div>
+                <div class="col-md-4"><i class="fa fa-gamepad fa-lg"></i> <b>Main Heating Controls:</b>
+                  {{Building.mainHeatingControls}}</div>
+                <div class="col-md-4"> <i class="fa fa-arrows-v fa-lg"></i> <b>Building Length:
+                  </b>{{Building.buildingLength}}</div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line2">
+                <div class="col-md-4"><i class="fa fa-arrows-h fa-lg"></i> <b>Building Width:</b>
+                  {{Building.buildingWidth}}</div>
+                <div class="col-md-4"><i class="fa fa-arrows-v fa-lg"></i> <b>Roof Height: </b>{{Building.roofHeight}}
+                </div>
+                <div class="col-md-4"><i class="fa fa-arrows-v fa-lg"></i> <b>Height of Wall:
+                  </b>{{Building.heightofWall}}</div>
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line1">
+                <!-- <div class="col-md-4"><i class="fa fa-window-close fa-lg"></i> <b>Window Size:</b>
+                  {{Building.windowSize}}</div> -->
+                <div class="col-md-4"><i class="fa fa-sort-numeric-asc fa-lg"></i> <b>No. of Windows:
+                  </b>{{Building.noofWindows}}</div>
+                <div class="col-md-4"><i class="fa fa-window-restore fa-lg"></i> <b>Window Type:</b>
+                  {{Building.windowType}}</div>
+                <div class="col-md-4"><i class="fas fa-door-open fa-lg"></i> <b>Window Sizes:
+                  </b>{{Building.windowObject}}
+                </div>
+
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line2">
+                <!-- <div class="col-md-4"><i class="fas fa-door-open fa-lg"></i> <b>Door Size: </b>{{Building.doorSize}}
+                </div> -->
+                <div class="col-md-4"><i class="fa fa-sort-numeric-desc fa-lg"></i> <b>No. of Doors:
+                  </b>{{Building.noofDoors}}</div>
+                <div class="col-md-4"><i class="fa fa-university fa-lg"></i> <b>Door Type: </b>{{Building.doorType}}
+                </div>
+                <div class="col-md-4"><i class="fas fa-door-open fa-lg"></i> <b>Door Sizes: </b>{{Building.doorObject}}
+                </div>
+
+              </div>
+
+              <div class="d-flex flex-wrap justify-content-sm-start justify-content-center line1">
+                <div class="col-md-4"><i class="fa fa-optin-monster fa-lg"></i> <b>Roof Construction:</b>
+                  {{Building.roofConstruction}}</div>
+                <div class="col-md-4"><i class="fa fa-bars fa-lg"></i> <b>Floor Type: </b>{{Building.floorType}}</div>
+                <div class="col-md-4"><i class="fa sun-0 fa-lg"></i> <b>External Wall Type: </b>{{Building.externalWallType}}</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="card card-default card-md mb-4">
+            <div class="card-header">
+              <h6>Heat Loss Result / Summary</h6>
+            </div>
+            <div class="card-body">
+              {%for heatLoss in Building.summaryResponses %}
+              <div class="col-lg-12">
+                <div class="note-contents">
+                  <div class="note-grid-wrapper mb-30">
+                    <div class="notes-wrapper">
+                      <div class="note-grid">
+                        <div class="note-single">
+                          <div class="note-card note-important">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Window Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.windowHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-social">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Door Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.doorHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-personal">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Wall Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.wallHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-default">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Roof Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.roofHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-work">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Floor Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.floorHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-default">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Ventilation Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.ventelationHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-important">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Total Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.totalHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="note-single">
+                          <div class="note-card note-social">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Total External Heat Loss <span class="note-status"></span></h4>
+                                <p class="note-excerpt"> {{heatLoss.totalExternalHeatLoss}} kW</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="card card-default card-md mb-4">
+            <div class="card-header">
+              <h6>Energy Consumption</h6>
+            </div>
+            <div class="card-body">
+              {%for heatLoss in Building.summaryResponses2 %}
+              <div class="col-lg-12">
+                <div class="note-contents">
+                  <div class="note-grid-wrapper mb-30">
+                    <div class="notes-wrapper">
+                      <div class="note-grid">
+                       
+                        <div class="note-single">
+                          <div class="note-card note-social">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <h4 class="note-title">Total Energy Demand per Hour is<span class="note-status"></span></h4>
+                                <p class="note-excerpt"> 5.5 kW/h</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="note-single">
+                          <div class="note-card note-default">
+                            <div class="card border-0">
+                              <div class="card-body">
+                                <img src="{{ url_for('static', filename='/assets/img/EnergyEfficiency.png')}}" height="200" width="100%" />
+                                <!-- <h4 class="note-title">Your EPC Band is:-<span class="note-status">A</span></h4>
+                                <p class="note-excerpt">A</p>
+
+                                <h4 class="note-title">Your Energy Efficiency Rating is: 50<span class="note-status"></span></h4>
+                                <p class="note-excerpt"> 50</p> -->
+
+
+                                <div class="note-single" style="width: 100% !important;">
+                                  <div class="note-card note-work">
+                                    <div class="card border-0">
+                                      <div class="card-body">
+                                        <h4 class="note-title">Your EPC Band is<span class="note-status"></span></h4>
+                                        <p class="note-excerpt"> D</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+        
+                                <div class="note-single" style="width: 100% !important;">
+                                  <div class="note-card note-important">
+                                    <div class="card border-0">
+                                      <div class="card-body">
+                                        <h4 class="note-title">Your Energy Efficiency Rating is<span class="note-status"></span></h4>
+                                        <p class="note-excerpt"> {{heatLoss.energyEfficiency}} </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

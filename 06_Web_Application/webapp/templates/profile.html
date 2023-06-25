@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content%}
+<div class="contents" style="padding: 74px 25px 72px 25px;">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-main">
+          <h4 class="text-capitalize breadcrumb-title">Profile</h4>
+          <div class="breadcrumb-action justify-content-center flex-wrap">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/"><i
+                            class="uil uil-estate"></i>Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                </li>
+            </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <p class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger" style="color: red; font-weight: bold;">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+      </p>
+      <div class="col-lg-8">
+        <div class="card card-Vertical card-default card-md mb-4">
+          <div class="card-header">
+            <h6>Basic Information </h6>
+          </div>
+          <div class="card-body py-md-30">
+            <form  method="POST">
+              <div class="row">
+                <div class="col-md-6 mb-25">
+                  <label for="firstName" class=" color-dark fs-14 fw-500 align-center mb-10">First Name</label>
+                  <div class="with-icon">
+                    <span class="la-user lar"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="firstName"
+                    name="firstName" placeholder="First Name" value="{{ user.first_name }}">
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-25">
+                  <label for="lastName" class=" color-dark fs-14 fw-500 align-center mb-10">Last Name</label>
+                  <div class="with-icon">
+                    <span class="la-user lar"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="lastName"
+                    name="lastName" placeholder="Last Name" value="{{ user.last_name }}">
+                </div>
+                </div>
+
+                <div class="col-md-6 mb-25">
+                  <label for="location" class=" color-dark fs-14 fw-500 align-center mb-10">Location</label>
+                  <div class="with-icon">
+                    <span class="la-compass lar"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="location" name="location"  placeholder="Location"  value="{{ user.location }}">
+                </div>
+                </div>
+
+            
+                <div class="col-md-6 mb-25">
+                  <label for="“postcode”" class=" color-dark fs-14 fw-500 align-center mb-10">Post
+                    Code</label>
+                    <div class="with-icon">
+                      <span class="las la-map-marker"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id=“postcode” name="postcode" 
+                    placeholder="Post Code"  value="{{ user.postcode }}">
+                </div>
+                </div>
+
+                <div class="col-md-6 mb-25">
+                  <label for="phone" class=" color-dark fs-14 fw-500 align-center mb-10">Phone
+                    Number</label>
+                    <div class="with-icon">
+                      <span class="las la-phone"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="phone" name="phone" 
+                    placeholder="Phone"  value="{{ user.phone }}">
+                </div>
+                </div>
+
+                <div class="col-md-6 mb-25">
+                  <label for="email" class=" color-dark fs-14 fw-500 align-center mb-10">Email</label>
+                  <div class="with-icon">
+                    <span class="las la-envelope"></span>
+                  <input type="email" class="form-control ih-medium ip-gray radius-xs b-light" id="email" name="email" 
+                    placeholder="Email"  value="{{ user.email }}" disabled>
+                </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="layout-button mt-0">
+                    <!-- <button type="button" class="btn btn-default btn-squared btn-light px-20 ">cancel</button> -->
+                    <button type="submit" class="btn btn-primary btn-default btn-squared px-30" name="btn" value="profile">Update Profile</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card card-horizontal card-default card-md mb-4">
+          <div class="card-header">
+            <h6>Update Password</h6>
+          </div>
+          <div class="card-body py-md-30">
+            <div class="horizontal-form">
+              <form  method="POST">
+                <div class="col-md-12 mb-25">
+                  <label for="currentPassword" class=" color-dark fs-14 fw-500 align-center mb-10">Current Password</label>
+                  <div class="with-icon">
+                    <span class="las la-key"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="currentPassword"
+                    name="currentPassword" placeholder="Current Password">
+                </div>
+                </div> 
+                
+                <div class="col-md-12 mb-25">
+                  <label for="newPassword" class=" color-dark fs-14 fw-500 align-center mb-10">New Password</label>
+                  <div class="with-icon">
+                    <span class="las la-key"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="newPassword"
+                    name="newPassword" placeholder="New Password">
+                </div>
+                </div>
+                
+                <div class="col-md-12 mb-25">
+                  <label for="confirmPassword" class=" color-dark fs-14 fw-500 align-center mb-10">Confirm New Password</label>
+                  <div class="with-icon">
+                    <span class="las la-key"></span>
+                  <input type="text" class="form-control ih-medium ip-gray radius-xs b-light" id="confirmPassword"
+                    name="confirmPassword" placeholder="Confirm Password">
+                </div>
+                </div>
+               
+                <!-- <div class="form-group row mb-0"> -->
+                  <div class="col-md-12">
+                    <div class="layout-button mt-25">
+                      <!-- <button type="button" class="btn btn-default btn-squared btn-light px-20 ">cancel</button> -->
+                      <button type="submit" class="btn btn-primary btn-default btn-squared px-30" name="btn" value="password">Update Password</button>
+                    </div>
+                  </div>
+                <!-- </div> -->
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

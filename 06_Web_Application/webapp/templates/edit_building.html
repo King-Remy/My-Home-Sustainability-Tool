@@ -1,0 +1,856 @@
+{% extends "base.html" %}
+{% block title %}Edit Property Information{% endblock %}
+
+{% block content%}
+
+<link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{{url_for('static', filename='/assets/css/bd-wizard.css')}}">
+
+<style>
+    /* HIDE RADIO */
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* IMAGE STYLES */
+    [type=radio]+img {
+        cursor: pointer;
+    }
+
+    /* CHECKED STYLES */
+    [type=radio]:checked+img {
+        outline: 2px solid #f00;
+    }
+
+    .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #000 transparent;
+        top: 7px;
+    }
+</style>
+
+<div class="contents" style="padding: 80px 50px 50px 50px;">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="breadcrumb-main">
+                <h4 class="text-capitalize breadcrumb-title">Property Information</h4>
+                <div class="breadcrumb-action justify-content-center flex-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="uil uil-estate"></i>Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <form method="POST" id="submitDetails" name="submitDetails" onload="buildSize()">
+            <div id="wizard">
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-account-outline"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Building Information</div>
+                            <div class="bd-wizard-step-subtitle">Step 1</div>
+                        </div>
+                    </div>
+                </h3>
+
+                <!--Building Information starts here-->
+                <section>
+                    <div class="content-wrapper">
+
+                        <h4 class="section-heading">Enter your building details </h4>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="projectName">Project Name</label>
+                                <input type="text" name="projectName" id="projectName" class="form-control"
+                                    placeholder="Project Name" required value="{{Building.projectName}}">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="propertyAddress">Property Address</label>
+                                <input type="text" name="propertyAddress" id="propertyAddress" class="form-control"
+                                    placeholder="Property Address" style="max-width: 100%" required
+                                    value="{{Building.propertyAddress}}">
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label for="postCode">Post Code</label>
+                                <input type="text" name="postCode" id="postCode" class="form-control"
+                                    placeholder="Post Code" required value="{{Building.postCode}}">
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 25px; margin-bottom: 20px;">
+                            <div class="form-group col-md-2">
+                                <label for="propertType" style="margin: auto;">Select Property Type</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="detached"
+                                        onchange="buildSize()" {% if Building.propertyType=='detached' %}
+                                        checked="checked" {% endif %}>
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Detached.png')}}"
+                                        alt="Option 1">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Detached</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="semiDetached"
+                                        onchange="buildSize()" {% if Building.propertyType=='semiDetached' %}
+                                        checked="checked" {% endif %}>
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Semi-Detached.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Semi-Detached</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="midTerrace"
+                                        onchange="buildSize()" {% if Building.propertyType=='midTerrace' %}
+                                        checked="checked" {% endif %}>
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Mid-Terrace.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Mid-Terrace</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="endTerrace"
+                                        onchange="buildSize()" {% if Building.propertyType=='endTerrace' %}
+                                        checked="checked" {% endif %}>
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/End-Terrace.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">End-Terrace</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="other"
+                                        onchange="buildSize()" {% if Building.propertyType=='other' %} checked="checked"
+                                        {% endif %}>
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Other.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Other</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4 dropdown-custom">
+                                <label for="projectLocation">Property Location</label>
+
+                                <select name="projectLocation" id="projectLocation" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="North England and the English Midlands" {% if
+                                        Building.projectLocation=='North England and the English Midlands' %}
+                                        selected="selected" {% endif %}>North England and the English Midlands</option>
+                                    <option value="Northern Ireland" {% if Building.projectLocation=='Northern Ireland'
+                                        %} selected="selected" {% endif %}>Northern Ireland</option>
+                                    <option value="Scotland" {% if Building.projectLocation=='Scotland' %}
+                                        selected="selected" {% endif %}>Scotland</option>
+                                    <option value="South East England and Wales" {% if
+                                        Building.projectLocation=='South East England and Wales' %} selected="selected"
+                                        {% endif %}>South East England and Wales</option>
+                                    <option value="South West England" {% if
+                                        Building.projectLocation=='South West England' %} selected="selected" {% endif
+                                        %}>South West England</option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="propertyAge">Age of Property</label>
+                                <select name="propertyAge" id="propertyAge" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Built 2003 or later" {% if
+                                        Building.propertyAge=='Built 2003 or later' %} selected="selected" {% endif %}>
+                                        Built 2003 or later</option>
+                                    <option value="Built 1980 - 2002" {% if Building.propertyAge=='Built 1980 - 2002' %}
+                                        selected="selected" {% endif %}>Built 1983 - 2002</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="extensionCount">Extension Count</label>
+                                <select name="extensionCount" id="extensionCount" class="form-select"
+                                    onchange="buildSize()">
+                                    <option value="0" {% if Building.extensionCount=='0' %} selected="selected" {% endif
+                                        %}>0</option>
+                                    <option value="1" {% if Building.extensionCount=='1' %} selected="selected" {% endif
+                                        %}>1</option>
+                                    <option value="2" {% if Building.extensionCount=='2' %} selected="selected" {% endif
+                                        %}>2</option>
+                                    <option value="3" {% if Building.extensionCount=='3' %} selected="selected" {% endif
+                                        %}>3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="noofFloors">No of Floors</label>
+                                <input type="number" name="noofFloors" id="noofFloors" class="form-select"
+                                    placeholder="" required value="{{Building.noofFloors}}">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="indoorTemperature">Indoor Temprature</label>
+                                <input type="number" name="indoorTemperature" id="indoorTemperature" class="form-select"
+                                    placeholder="" required value="{{Building.indoorTemperature}}">
+                            </div>
+
+                            <div class="form-group col-md-4 dropdown-custom">
+                                <label for="externalWallType">External Wall Type</label>
+
+                                <select name="externalWallType" id="externalWallType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Cavity wall from 2021 to present" {% if Building.externalWallType=='Cavity wall from 2021 to present' %}
+                                    selected="selected" {% endif %}>Cavity wall from 2021 to present</option>
+                                    <option value="Cavity wall 2002 - 2020" {% if Building.externalWallType=='Cavity wall 2002 - 2020' %}
+                                    selected="selected" {% endif %}>Cavity wall 2002 - 2020</option>
+                                    <option value="Cavity wall 1980 - 2001" {% if Building.externalWallType=='Cavity wall 1980 - 2001' %}
+                                    selected="selected" {% endif %}>Cavity wall 1980 - 2001</option>
+                                    <option value="Cavity wall 1960 - 1980" {% if Building.externalWallType=='Cavity wall 1960 - 1980' %}
+                                    selected="selected" {% endif %}>Cavity wall 1960 - 1980</option>
+                                    <option value="Solid brickwork" {% if Building.externalWallType=='Solid brickwork' %}
+                                    selected="selected" {% endif %}>Solid brickwork</option>
+                                    <option value="No insulation" {% if Building.externalWallType=='No insulation' %}
+                                    selected="selected" {% endif %}>No insulation</option>
+                                    <option value="I dont know the wall constrcution" {% if Building.externalWallType=='I dont know the wall constrcution' %}
+                                    selected="selected" {% endif %}>I don't know the wall constrcution</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 5px; margin: 20px 0 20px 0;">
+                            <h4 class="section-heading" style="margin-bottom: 0% !important;">More building
+                                information </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4 dropdown-custom">
+                                <label for="energyTarrif">Energy Tarrif Type</label>
+
+                                <select name="energyTarrif" id="energyTarrif" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Off-peak" {% if Building.energyTarrif=='Off-peak' %}
+                                        selected="selected" {% endif %}>Off-Peak</option>
+                                    <option value="Standard Tariff" {% if Building.energyTarrif=='Standard Tariff' %}
+                                        selected="selected" {% endif %}>Standard Tariff</option>
+                                    <option value="Single" {% if Building.energyTarrif=='Single' %} selected="selected"
+                                        {% endif %}>Single</option>
+                                    <option value="Dual" {% if Building.energyTarrif=='Dual' %} selected="selected" {%
+                                        endif %}>Dual</option>
+                                    <option value="I dont know" {% if Building.energyTarrif=='I dont know' %}
+                                        selected="selected" {% endif %}>I don't know the energy tariff</option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="lightingType">Lighting Type</label>
+                                <select name="lightingType" id="lightingType" class="form-select">
+                                    <option value="">Select...</option>
+                                    <option value="Low energy lighting" {% if
+                                        Building.lightingType=='Low energy lighting' %} selected="selected" {% endif %}>
+                                        Low energy lighting</option>
+                                    <option value="No low energy lighting" {% if
+                                        Building.lightingType=='No low energy lighting' %} selected="selected" {% endif
+                                        %}>No low energy lighting</option>
+                                    <option value="I dont know the energy lighting" {% if
+                                        Building.lightingType=='I dont know the energy lighting' %} selected="selected"
+                                        {% endif %}>I don't know the energy
+                                        lighting</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="noofRooms">No. of Rooms</label>
+                                <select name="noofRooms" id="noofRooms" class="form-select">
+                                    <option value="1" {% if Building.noofRooms=='1' %} selected="selected" {% endif %}>1
+                                    </option>
+                                    <option value="2" {% if Building.noofRooms=='2' %} selected="selected" {% endif %}>2
+                                    </option>
+                                    <option value="3" {% if Building.noofRooms=='3' %} selected="selected" {% endif %}>3
+                                    </option>
+                                    <option value="4" {% if Building.noofRooms=='4' %} selected="selected" {% endif %}>4
+                                    </option>
+                                    <option value="5" {% if Building.noofRooms=='5' %} selected="selected" {% endif %}>5
+                                    </option>
+                                    <option value="6" {% if Building.noofRooms=='6' %} selected="selected" {% endif %}>6
+                                    </option>
+                                    <option value="7" {% if Building.noofRooms=='7' %} selected="selected" {% endif %}>7
+                                    </option>
+                                    <option value="8" {% if Building.noofRooms=='8' %} selected="selected" {% endif %}>8
+                                    </option>
+                                    <option value="9" {% if Building.noofRooms=='9' %} selected="selected" {% endif %}>9
+                                    </option>
+                                    <option value="10" {% if Building.noofRooms=='10' %} selected="selected" {% endif
+                                        %}>10</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label for="hotwaterHeating">Hot Water Heating</label>
+                                <select name="hotwaterHeating" id="hotwaterHeating" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Gas Boiler" {% if Building.hotwaterHeating=='Gas Boiler' %}
+                                        selected="selected" {% endif %}>Gas Boiler</option>
+                                    <option value="Oil Boiler" {% if Building.hotwaterHeating=='Oil Boiler' %}
+                                        selected="selected" {% endif %}>Oil Boiler</option>
+                                    <option value="Electric Heating" {% if Building.hotwaterHeating=='Electric Heating'
+                                        %} selected="selected" {% endif %}>Electric Heating</option>
+                                    <option value="Solar" {% if Building.hotwaterHeating=='Solar' %} selected="selected"
+                                        {% endif %}>Solar</option>
+                                    <option value="Fuel Boiler" {% if Building.hotwaterHeating=='Fuel Boiler' %}
+                                        selected="selected" {% endif %}>Fuel Boiler</option>
+                                    <option value="Coal Boiler" {% if Building.hotwaterHeating=='Coal Boiler' %}
+                                        selected="selected" {% endif %}>Coal Boiler</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label for="mainHeatingControls"> Main Heating Controls</label>
+                                <select name="mainHeatingControls" id="mainHeatingControls" class="form-select"
+                                    required>
+                                    <option value="">Select...</option>
+                                    <option value="Programmer: time control" {% if
+                                        Building.mainHeatingControls=='Programmer: time control' %} selected="selected"
+                                        {% endif %}>Programmer: time control</option>
+                                    <option value="Programmer: room thermostat" {% if
+                                        Building.mainHeatingControls=='Programmer: room thermostat' %}
+                                        selected="selected" {% endif %}>Programmer: room thermostat</option>
+                                    <option value="Programmer: no room thermostat" {% if
+                                        Building.mainHeatingControls=='Programmer: no room thermostat' %}
+                                        selected="selected" {% endif %}>Programmer: no room thermostat </option>
+                                    <option value="Programmer: TRVs" {% if
+                                        Building.mainHeatingControls=='Programmer: TRVs' %} selected="selected" {% endif
+                                        %}>Programmer: TRVs</option>
+                                    <option value="Community heating chargin system" {% if
+                                        Building.mainHeatingControls=='Community heating chargin system' %}
+                                        selected="selected" {% endif %}>Community heating chargin
+                                        system</option>
+                                    <option value="Room thermostat" {% if
+                                        Building.mainHeatingControls=='Room thermostat' %} selected="selected" {% endif
+                                        %}>Room Thermostat</option>
+                                    <option value="I don't know the heating control" {% if
+                                        Building.mainHeatingControls=="I don't know the heating control" %}
+                                        selected="selected" {% endif %}>I don't know the heating
+                                        control</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </section>
+                <!--Building Information ends here-->
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-bank"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Building Size</div>
+                            <div class="bd-wizard-step-subtitle">Step 2</div>
+                        </div>
+                    </div>
+                </h3>
+
+                <!--Building size starts here-->
+                <section>
+                    <div class="content-wrapper">
+                        <h4 class="section-heading">Enter your building length and width </h4>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group col-md-8">
+                                    <label for="designation">Property size</label>
+                                    <img src="" id="buildsize"height="400" width="400"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="buildingLength">Building Length in Metres</label>
+                                        <input type="number" name="buildingLength" id="buildingLength"
+                                            class="form-control" required value="{{Building.buildingLength}}">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="buildingWidth">Building Width in Metres</label>
+                                        <input type="number" name="buildingWidth" id="buildingWidth"
+                                            class="form-control" required value="{{Building.buildingWidth}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row" id="ext1" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label for="extension1Length">Extension 1 Length in Metres</label>
+                                        <input type="number" name="extension1Length" id="extension1Length"
+                                            class="form-control" value="{{Building.extension1Length}}">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="extension1Width">Extension 1 Width in Metres</label>
+                                        <input type="number" name="extension1Width" id="extension1Width"
+                                            class="form-control" value="{{Building.extension1Width}}">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="ext2" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label for="extension2Length">Extension 2 Length in Metres</label>
+                                        <input type="number" name="extension2Length" id="extension2Length"
+                                            class="form-control" value="{{Building.extension2Length}}">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="extension2Width">Extension 2 Width in Metres</label>
+                                        <input type="number" name="extension2Width" id="extension2Width"
+                                            class="form-control" value="{{Building.extension2Width}}">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="ext3" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label for="extension3Length">Extension 3 Length in Metres</label>
+                                        <input type="number" name="extension3Length" id="extension3Length"
+                                            class="form-control" value="{{Building.extension3Length}}">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="extension3Width">Extension 3 Width in Metres</label>
+                                        <input type="number" name="extension3Width" id="extension3Width"
+                                            class="form-control" value="{{Building.extension3Width}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 5px; margin: 20px 0 20px 0;">
+                            <h4 class="section-heading" style="margin-bottom: 0% !important;">
+                                Describe property size and take measurements (in metres) </h4>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="row col-md-8">
+                                <img src="{{url_for('static', filename='/assets/img/buildingTypes/buildingHeight.png')}}"
+                                    alt="building height" style="height: 450px; width: 80% !important;" />
+                            </div>
+
+                            <div class="col-md-4" style="margin-top: 50px;">
+
+                                <div class="form-group col-md-12">
+                                    <label for="roofHeight">Roof Height in Metres</label>
+                                    <input type="number" name="roofHeight" id="roofHeight" class="form-control" required
+                                        value="{{Building.roofHeight}}">
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="heightofWall">Height of Wall in Metres</label>
+                                    <input type="number" name="heightofWall" id="heightofWall" class="form-control"
+                                        required value="{{Building.heightofWall}}">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!--Building size ends here-->
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-account-check-outline"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Window and Door Information</div>
+                            <div class="bd-wizard-step-subtitle">Step 3</div>
+                        </div>
+                    </div>
+                </h3>
+                <section>
+                    <div class="content-wrapper">
+                        <h4 class="section-heading mb-5">Describe Window Information</h4>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="noofWindows">Total no. of Windows - accross the elevation and extension(s)</label>
+                                <select type="number" name="noofWindows" id="noofWindows" class="form-select" required
+                                    onchange="addWindows()">
+                                    <option value="">Select...</option>
+                                    <option value=1 {% if Building.noofWindows=='1' %} selected="selected" {% endif %}>1</option>
+                                    <option value=2 {% if Building.noofWindows=='2' %} selected="selected" {% endif %}>2</option>
+                                    <option value=3 {% if Building.noofWindows=='3' %} selected="selected" {% endif %}>3</option>
+                                    <option value=4 {% if Building.noofWindows=='4' %} selected="selected" {% endif %}>4</option>
+                                    <option value=5 {% if Building.noofWindows=='5' %} selected="selected" {% endif %}>5</option>
+                                </select>
+
+                                <label>Use the image for reference</label>
+                                <img src="" id="windowsize" sheight="200" width="200" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="windowType">Window Type</label>
+                                <select name="windowType" id="windowType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Double glazed from 2020" {% if
+                                        Building.windowType=='Double glazed from 2020' %} selected="selected" {% endif
+                                        %}>Double glazed from 2020</option>
+                                    <option value="Double glazed" {% if Building.windowType=='Double glazed' %}
+                                        selected="selected" {% endif %}>Double glazed</option>
+                                    <option value="Single glazed" {% if Building.windowType=='Single glazed' %}
+                                        selected="selected" {% endif %}>Single glazed</option>
+                                    <option value="I dont know the window type" {% if
+                                        Building.windowType=='I dont know the window type' %} selected="selected" {%
+                                        endif %}>I don't know the window type</option>
+                                </select>
+                            </div>
+                            <div class="row col-md-4" id="window">
+                                </div>
+
+                            <!-- <div class="form-group col-md-4">
+                                <label for="windowSize">Window Size</label>
+                                <select name="windowSize" id="windowSize" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Small" {% if Building.windowSize=='Small' %} selected="selected" {%
+                                        endif %}>Small</option>
+                                    <option value="Medium" {% if Building.windowSize=='Medium' %} selected="selected" {%
+                                        endif %}>Medium</option>
+                                    <option value="Large" {% if Building.Large=='Small' %} selected="selected" {% endif
+                                        %}>Large</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="noofWindows">No of Windows</label>
+                                <input type="number" name="noofWindows" id="noofWindows" class="form-select" required
+                                    value="{{Building.noofWindows}}">
+                            </div> -->
+
+                            <!-- <div class="form-group col-md-4">
+                                <label for="windowType">Window Type</label>
+                                <select name="windowType" id="windowType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Double glazed from 2020" {% if
+                                        Building.windowType=='Double glazed from 2020' %} selected="selected" {% endif
+                                        %}>Double glazed from 2020</option>
+                                    <option value="Double glazed" {% if Building.windowType=='Double glazed' %}
+                                        selected="selected" {% endif %}>Double glazed</option>
+                                    <option value="Single glazed" {% if Building.windowType=='Single glazed' %}
+                                        selected="selected" {% endif %}>Single glazed</option>
+                                    <option value="I dont know the window type" {% if
+                                        Building.windowType=='I dont know the window type' %} selected="selected" {%
+                                        endif %}>I don't know the window type</option>
+                                </select>
+                            </div> -->
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 5px; margin: 20px 0 20px 0;">
+                            <h4 class="section-heading" style="margin-bottom: 0% !important;">Door
+                                Information </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="noofDoors">No of Doors</label>
+                                <select type="number" name="noofDoors" id="noofDoors" class="form-select" required
+                                    onchange="addDoors()">
+                                    <option value="">Select...</option>
+                                    <option value=1 {% if Building.noofDoors=='1' %} selected="selected" {% endif %}>1</option>
+                                    <option value=2 {% if Building.noofDoors=='2' %} selected="selected" {% endif %}>2</option>
+                                    <option value=3 {% if Building.noofDoors=='3' %} selected="selected" {% endif %}>3</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="doorType">Door Type</label>
+                                <select name="doorType" id="doorType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="External" {% if Building.doorType=='External' %} selected="selected"
+                                        {% endif %}>External</option>
+                                    <option value="Internal" {% if Building.doorType=='Internal' %} selected="selected"
+                                        {% endif %}>Internal</option>
+                                </select>
+                            </div>
+
+                            <div class="row col-md-4" id="doors">
+
+                            </div>
+
+                            <!-- <div class="form-group col-md-4">
+                                <label for="doorSize">Door Size</label>
+                                <select name="doorSize" id="doorSize" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Small" {% if Building.doorSize=='Small' %} selected="selected" {%
+                                        endif %}>Small</option>
+                                    <option value="Medium" {% if Building.doorSize=='Medium' %} selected="selected" {%
+                                        endif %}>Medium</option>
+                                    <option value="Large" {% if Building.doorSize=='Large' %} selected="selected" {%
+                                        endif %}>Large</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="noofDoors">No. of Doors</label>
+                                <input type="number" name="noofDoors" id="noofDoors" class="form-select" required
+                                    value="{{Building.noofDoors}}">
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="doorType">Door Type</label>
+                                <select name="doorType" id="doorType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="External" {% if Building.doorType=='External' %} selected="selected"
+                                        {% endif %}>External</option>
+                                    <option value="Internal" {% if Building.doorType=='Internal' %} selected="selected"
+                                        {% endif %}>Internal</option>
+                                </select>
+                            </div> -->
+                        </div>
+                    </div>
+                </section>
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-emoticon-outline"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Roof and Floor Information</div>
+                            <div class="bd-wizard-step-subtitle">Step 4</div>
+                        </div>
+                    </div>
+                </h3>
+                <section>
+                    <div class="content-wrapper">
+                        <h4 class="section-heading mb-5">Enter Roof and Floor Information</h4>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="roofConstruction">Roof Construction</label>
+                                <select name="roofConstruction" id="roofConstruction" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Insulated horizontally from 2021" {% if
+                                        Building.roofConstruction=='Insulated horizontally from 2021' %}
+                                        selected="selected" {% endif %}>Insulated horizontally from 2021
+                                    </option>
+                                    <option value="Insulated horizontally from 2002 to 2021" {% if
+                                        Building.roofConstruction=='Insulated horizontally from 2002 to 2021' %}
+                                        selected="selected" {% endif %}>Insulated horizontally from
+                                        2002 to 2021 </option>
+                                    <option value="Insulated horizontally from 1990 to 2002" {% if
+                                        Building.roofConstruction=='Insulated horizontally from 1990 to 2002' %}
+                                        selected="selected" {% endif %}>Insulated horizontally
+                                        from 1990 to 2002 </option>
+                                    <option value="Insulated on the slope from 2021" {% if
+                                        Building.roofConstruction=='Insulated on the slope from 2021' %}
+                                        selected="selected" {% endif %}>Insulated on the slope from 2021
+                                    </option>
+                                    <option value="Insulated on the slope from 2002 To 2021" {% if
+                                        Building.roofConstruction=='Insulated on the slope from 2002 To 2021' %}
+                                        selected="selected" {% endif %}>Insulated on the slope from
+                                        2002 To 2021 </option>
+                                    <option value="Insulated on the slope from 1990 To 2001" {% if
+                                        Building.roofConstruction=='Insulated on the slope from 1990 To 2001' %}
+                                        selected="selected" {% endif %}>Insulated on the slope from
+                                        1990 To 2001 </option>
+                                    <option value="No insulation" {% if Building.roofConstruction=='No insulation' %}
+                                        selected="selected" {% endif %}>No insulation </option>
+                                    <option value="I dont know the roof type" {% if
+                                        Building.roofConstruction=='I dont know the roof type' %} selected="selected" {%
+                                        endif %}>I don't know the roof type </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="floorType">Floor Type</label>
+                                <select name="floorType" id="floorType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Insulated concrete 1990 above" {% if
+                                        Building.floorType=='Insulated concrete 1990 above' %} selected="selected" {%
+                                        endif %}>Insulated concrete 1990 above</option>
+                                    <option value="Insulated Timber 1990 above" {% if
+                                        Building.floorType=='Insulated Timber 1990 above' %} selected="selected" {%
+                                        endif %}>Insulated Timber 1990 above</option>
+                                    <option value="Timber un-insulated floor pre 1990" {% if
+                                        Building.floorType=='Timber un-insulated floor pre 1990' %} selected="selected"
+                                        {% endif %}>Timber un-insulated floor pre
+                                        1990</option>
+                                    <option value="Concrete uninsulated floor pre 1990" {% if
+                                        Building.floorType=='Concrete uninsulated floor pre 1990' %} selected="selected"
+                                        {% endif %}>Concrete uninsulated floor pre
+                                        1990</option>
+                                    <option value="I dont know the floor type" {% if
+                                        Building.floorType=='I dont know the floor type' %} selected="selected" {% endif
+                                        %}>I don't know the floor type </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+            <button type="submit" class="btn btn-info btn-lg" id="sendtobackend" style="display: none;">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgYKHZB_QKKLWfIRaYPCadza3nhTAbv7c"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="{{url_for('static', filename='/assets/js/jquery.steps.min.js')}}"></script>
+<script src="{{url_for('static', filename='/assets/js/bd-wizard.js')}}"></script>
+
+<script>
+    function buildSize() {
+        var propertyType = $('input[name="propertyType"]:checked').val();
+        var extensions = document.getElementById('extensionCount').value;
+
+        // alert('/img/buildingTypes/'+propertyType+extensions+'.png')
+        document.getElementById("buildsize").src = '/static/assets/img/buildingTypes/' + propertyType + extensions + '.png';
+        document.getElementById("windowsize").src = '/static/assets/img/buildingTypes/' + propertyType + extensions + '.png';
+
+        if (extensions == 0) {
+            document.getElementById("ext1").style.display = 'none';
+            document.getElementById("ext2").style.display = 'none';
+            document.getElementById("ext3").style.display = 'none';
+        } else if (extensions == 1) {
+            document.getElementById("ext1").style.display = 'block';
+            document.getElementById("ext2").style.display = 'none';
+            document.getElementById("ext3").style.display = 'none';
+        }
+        else if (extensions == 2) {
+            document.getElementById("ext1").style.display = 'block';
+            document.getElementById("ext2").style.display = 'block';
+            document.getElementById("ext3").style.display = 'none';
+        }
+        else if (extensions == 3) {
+            document.getElementById("ext1").style.display = 'block';
+            document.getElementById("ext2").style.display = 'block';
+            document.getElementById("ext3").style.display = 'block';
+        } else {
+            document.getElementById("ext1").style.display = 'none';
+            document.getElementById("ext2").style.display = 'none';
+            document.getElementById("ext3").style.display = 'none';
+        }
+    }
+</script>
+
+<script>
+    function addWindows() {
+        var noofwindows = document.getElementById("noofWindows").value;
+        // Select the div element with the ID 'window'
+        const windowDiv = document.getElementById('window');
+
+        // Clear the inner content of the windowDiv
+        windowDiv.innerHTML = '';
+        for (var i = 1; i <= noofwindows; i++) {
+            // Create a new HTML element to hold the block of code
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'row';
+            var winS = 'Windows.windowSize'+ i 
+
+            // Set the innerHTML of the new element to the provided code block
+            codeBlockDiv.innerHTML = '\
+<div class="form-group col-md-6">\
+  <label for="windowSize'+ i +'">Window Size '+ i +'</label>\
+  <select name="windowSize'+ i +'" id="windowSize'+ i +'" class="form-select" required>\
+    <option value="">Select...</option>\
+    <option value="Small" {% if '+ winS +'=="Small" %} selected="selected" {% endif %}>Small</option>\
+    <option value="Medium" {% if '+ winS +'=="Medium" %} selected="selected" {% endif %}>Medium</option>\
+    <option value="Large" {% if '+ winS +'=="Large" %} selected="selected" {% endif %}>Large</option>\
+  </select>\
+</div> ';
+            // Append the code block element to the 'window' div
+            windowDiv.appendChild(codeBlockDiv);
+        }
+    }
+</script>
+
+<script>
+    function addDoors() {
+        var noofdoors = document.getElementById("noofDoors").value;
+        // Select the div element with the ID 'window'
+        const doorDiv = document.getElementById('doors');
+
+        // Clear the inner content of the windowDiv
+        doorDiv.innerHTML = '';
+
+        for (var i = 1; i <= noofdoors; i++) {
+            // Create a new HTML element to hold the block of code
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'row';
+
+            var winT = 'Doors.doorSize'+ i;
+
+            var wint = JSON.parse('{{Doors|tojson}}');
+
+            // alert(wint)
+            // Set the innerHTML of the new element to the provided code block
+            codeBlockDiv.innerHTML = '\
+    <div class="form-group col-md-6">\
+                                <label for="doorSize'+ i +'">Door Size '+ i +'</label>\
+                                <select name="doorSize'+ i +'" id="doorSize'+ i +'" class="form-select" required>\
+                                    <option value="">Select...</option>\
+                                    <option value="Small" {% if '+ winT +'=="Small" %} selected="selected" {% endif %}>Small</option>\
+                                    <option value="Medium" {% if '+ winT +'=="Medium" %} selected="selected" {% endif %}>Medium</option>\
+                                    <option value="Large" {% if '+ winT +'=="Large" %} selected="selected" {% endif %}>Large</option>\
+                                </select>\
+                            </div> ';
+
+            // Append the code block element to the 'window' div
+            doorDiv.appendChild(codeBlockDiv);
+        }
+    }
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        buildSize();
+        addWindows();
+        addDoors();
+    });
+</script>
+
+{% endblock %}

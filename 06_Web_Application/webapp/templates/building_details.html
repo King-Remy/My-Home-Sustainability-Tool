@@ -1,0 +1,794 @@
+{% extends "base.html" %}
+{% block title %}Property Information{% endblock %}
+
+{% block content%}
+
+<link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{{url_for('static', filename='/assets/css/bd-wizard.css')}}">
+
+<style>
+    /* HIDE RADIO */
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* IMAGE STYLES */
+    [type=radio]+img {
+        cursor: pointer;
+    }
+
+    /* CHECKED STYLES */
+    [type=radio]:checked+img {
+        outline: 2px solid #f00;
+    }
+
+    .select-selected.select-arrow-active:after {
+        border-color: transparent transparent #000 transparent;
+        top: 7px;
+    }
+
+    @media (min-width: 750px) {
+  .buildingLength{
+    margin-top: 40%;
+  }
+}
+</style>
+
+<div class="contents" style="padding: 80px 50px 50px 50px;">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="breadcrumb-main">
+                <h4 class="text-capitalize breadcrumb-title">Property Information</h4>
+                <div class="breadcrumb-action justify-content-center flex-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="uil uil-estate"></i>Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <form method="POST" id="submitDetails" name="submitDetails">
+            <div id="wizard">
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-account-outline"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Building Information</div>
+                            <div class="bd-wizard-step-subtitle">Step 1</div>
+                        </div>
+                    </div>
+                </h3>
+
+                <!--Building Information starts here-->
+                <section>
+                    <div class="content-wrapper">
+
+                        <h4 class="section-heading">Enter your building details </h4>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="projectName">Project Name</label>
+                                <input type="text" name="projectName" id="projectName" class="form-control"
+                                    placeholder="Project Name" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="propertyAddress">Property Address</label>
+                                <input type="text" name="propertyAddress" id="propertyAddress" class="form-control"
+                                    placeholder="Property Address" style="max-width: 100%" required>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label for="postCode">Post Code</label>
+                                <input type="text" name="postCode" id="postCode" class="form-control"
+                                    placeholder="Post Code" required>
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 25px; margin-bottom: 20px;">
+                            <div class="form-group col-md-2">
+                                <label for="propertType" style="margin: auto;">Select Property Type</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="Detached"
+                                        onchange="buildSize()">
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Detached.png')}}"
+                                        alt="Option 1">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Detached</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="Semi-Detached"
+                                        onchange="buildSize()">
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Semi-Detached.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Semi-Detached</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="Mid-Terrace"
+                                        onchange="buildSize()">
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Mid-Terrace.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Mid-Terrace</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="End-Terrace"
+                                        onchange="buildSize()">
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/End-Terrace.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">End-Terrace</label>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label>
+                                    <input type="radio" name="propertyType" id="propertyType" value="Other"
+                                        onchange="buildSize()">
+                                    <img src="{{ url_for('static', filename='/assets/img/buildingTypes/Other.png')}}"
+                                        alt="Option 2">
+                                </label>
+                                <br>
+                                <label style="text-align: center;">Other</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4 dropdown-custom">
+                                <label for="projectLocation">Property Location</label>
+
+                                <select name="projectLocation" id="projectLocation" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="North England and the English Midlands">North England and the English
+                                        Midlands</option>
+                                    <option value="Northern Ireland">Northern Ireland</option>
+                                    <option value="Scotland">Scotland</option>
+                                    <option value="South East England and Wales">South East England and Wales</option>
+                                    <option value="South West England">South West England</option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="propertyAge">Age of Property</label>
+                                <select name="propertyAge" id="propertyAge" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Built 2003 or later">Built 2003 or later</option>
+                                    <option value="Built 1980 - 2002">Built 1980 - 2002</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="extensionCount">Extension Count</label>
+                                <select name="extensionCount" id="extensionCount" class="form-select"
+                                    onchange="buildSize()">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="noofFloors">No of Floors</label>
+                                <input type="number" name="noofFloors" id="noofFloors" class="form-select"
+                                    placeholder="" required>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="indoorTemperature">Indoor Temprature</label>
+                                <input type="number" name="indoorTemperature" id="indoorTemperature" class="form-select"
+                                    placeholder="" required>
+                            </div>
+                            <div class="form-group col-md-4 dropdown-custom">
+                                <label for="externalWallType">External Wall Type</label>
+
+                                <select name="externalWallType" id="externalWallType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Cavity wall from 2021 to present">Cavity wall from 2021 to present
+                                    </option>
+                                    <option value="Cavity wall 2002 - 2020">Cavity wall 2002 - 2020</option>
+                                    <option value="Cavity wall 1980 - 2001">Cavity wall 1980 - 2001</option>
+                                    <option value="Cavity wall 1960 - 1980">Cavity wall 1960 - 1980</option>
+                                    <option value="Solid brickwork">Solid brickwork</option>
+                                    <option value="No insulation">No insulation</option>
+                                    <option value="I dont know">I don't know the wall constrcution
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 5px; margin: 20px 0 20px 0;">
+                            <h4 class="section-heading" style="margin-bottom: 0% !important;">More building
+                                information </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4 dropdown-custom">
+                                <label for="energyTariff">Energy Tariff Type</label>
+
+                                <select name="energyTariff" id="energyTariff" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Off-Peak">Off-Peak</option>
+                                    <option value="Standard Tariff">Standard Tariff</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Dual">Dual</option>
+                                    <option value="I don't know">I don't know the energy tariff
+                                    </option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="lightingType">Lighting Type</label>
+                                <select name="lightingType" id="lightingType" class="form-select">
+                                    <option value="">Select...</option>
+                                    <option value="Low energy lighting">Low energy lighting</option>
+                                    <option value="No low energy lighting">No low energy lighting</option>
+                                    <option value="I dont know">I don't know the energy
+                                        lighting</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="noofRooms">No. of Rooms</label>
+                                <select name="noofRooms" id="noofRooms" class="form-select">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label for="hotwaterHeating">Hot Water Heating</label>
+                                <select name="hotwaterHeating" id="hotwaterHeating" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Gas Boiler">Gas Boiler</option>
+                                    <option value="Oil Boiler">Oil Boiler</option>
+                                    <option value="Electric Heating">Electric Heating</option>
+                                    <option value="Solar">Solar</option>
+                                    <option value="Fuel Boiler">Fuel Boiler</option>
+                                    <option value="Coal Boiler">Coal Boiler</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label for="mainHeatingControls"> Main Heating Controls</label>
+                                <select name="mainHeatingControls" id="mainHeatingControls" class="form-select"
+                                    required>
+                                    <option value="">Select...</option>
+                                    <option value="Programmer: time control">Programmer: time control</option>
+                                    <option value="Programmer: room thermostat">Programmer: room thermostat</option>
+                                    <option value="Programmer: no room thermostat">Programmer: no room thermostat
+                                    </option>
+                                    <option value="Programmer: TRVs">Programmer: TRVs</option>
+                                    <option value="Community heating chargin system">Community heating charging
+                                        system</option>
+                                    <option value="Room thermostat">Room Thermostat</option>
+                                    <option value="I dont know">I don't know the heating
+                                        control</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="transactionType">Type of transaction that triggered EPC</label>
+                                <select name="transactionType" id="transactionType" class="form-select"
+                                    required>
+                                    <option value="">Select...</option>
+                                    <option value="Private rental">Private rental</option>
+                                    <option value="Sale">Sale</option>
+                                    <option value="New dwelling">New dwelling</option>
+                                    <option value="Stock condition survey">Stock condition survey</option>
+                                    <option value="Assessment">Green deal assessment</option>
+                                    <option value="Social rental">Social rental</option>
+                                    <option value="I dont know">I don't know the transaction type</option>
+                                </select>
+                            </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="openFireplace">Number of open fireplaces</label>
+                                <input type="number" name="openFireplace" id="openFireplace" class="form-select"
+                                    placeholder="" required>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </section>
+                <!--Building Information ends here-->
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-bank"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Building Size</div>
+                            <div class="bd-wizard-step-subtitle">Step 2</div>
+                        </div>
+                    </div>
+                </h3>
+
+                <!--Building size starts here-->
+                <section>
+                    <div class="content-wrapper">
+                        <h4 class="section-heading">Enter your building length and width </h4>
+                        <div class="row">
+                            <div class="row col-md-8">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="designation">Property size</label>
+                                            <img src="" id="buildsize" height="400" width="400" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-8">
+                                            <label for="buildingLength"><b>L </b>- Building Length (m)</label>
+                                            <input type="number" name="buildingLength" id="buildingLength"
+                                                class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-8 col-sm-12 col-xs-12 buildingLength">
+                                            <label for="buildingWidth"><b>W</b>- Building Width (m)</label>
+                                            <input type="number" name="buildingWidth" id="buildingWidth"
+                                                class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row" id="ext1" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label for="extension1Length"> <b>Ext1 L</b> - Extension 1 Length (m)</label>
+                                        <input type="number" name="extension1Length" id="extension1Length"
+                                            class="form-control" value="0">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="extension1Width"><b>Ext1 W</b> - Extension 1 Width (m)</label>
+                                        <input type="number" name="extension1Width" id="extension1Width"
+                                            class="form-control" value="0">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="ext2" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label for="extension2Length"><b>Ext2 L</b> - Extension 2 Length (m)</label>
+                                        <input type="number" name="extension2Length" id="extension2Length"
+                                            class="form-control" value="0">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="extension2Width"><b>Ext2 W</b> - Extension 2 Width (m)</label>
+                                        <input type="number" name="extension2Width" id="extension2Width"
+                                            class="form-control" value="0">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="ext3" style="display: none;">
+                                    <div class="form-group col-md-12">
+                                        <label for="extension3Length"><b>Ext3 L</b> - Extension 3 Length (m)</label>
+                                        <input type="number" name="extension3Length" id="extension3Length"
+                                            class="form-control" value="0">
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="extension3Width"><b>Ext3 W </b> - Extension 3 Width (m)</label>
+                                        <input type="number" name="extension3Width" id="extension3Width"
+                                            class="form-control" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 5px; margin: 20px 0 20px 0;">
+                            <h4 class="section-heading" style="margin-bottom: 0% !important;">
+                                Describe property size and take measurements (m) </h4>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="row col-md-10">
+                                <div class="form-group col-md-4" style="margin-top: 20%;">
+                                    <div class="col-md-12" id="extH1" style="display: none;">
+                                    <label for="extension1Height"><b>Ext1 H </b>- Extension 1 Height (m)</label>
+                                    <input type="number" name="extension1Height" id="extension1Height" class="form-control"
+                                    value="0" >
+                                    </div>
+
+                                    <div class="col-md-12" id="extH2" style="display: none;">
+                                        <label for="extension2Height"><b>Ext2 H </b>- Extension 2 Height (m)</label>
+                                        <input type="number" name="extension2Height" id="extension2Height" class="form-control" value="0"
+                                            >
+                                        </div>
+                                        <div class="col-md-12" id="extH3" style="display: none;">
+                                            <label for="extension3Height"><b>Ext3 H</b> - Extension 3 Height (m)</label>
+                                            <input type="number" name="extension3Height" id="extension3Height" class="form-control"
+                                            value="0"   >
+                                            </div>
+                        </div>
+                                <img src="{{url_for('static', filename='/assets/img/buildingTypes/buildingHeight.png')}}"
+                                    alt="building height" height="400" width="700" class="col-md-8" />
+</div>
+                            <!-- <div class="form-group col-md">
+                                <label for="roofHeight">Roof Height in Metres</label>
+                                <input type="number" name="roofHeight" id="roofHeight" class="form-control"
+                                    required>
+                            </div> -->
+
+                            <div class="col-md-2" style="margin-top: 50px;">
+
+                                <div class="form-group col-md-12">
+                                    <label for="roofHeight"><b>H2</b> - Roof Height (m)</label>
+                                    <input type="number" name="roofHeight" id="roofHeight" class="form-control"
+                                        required>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="heightofWall"><b> H1</b> - Height of Wall (m)</label>
+                                    <input type="number" name="heightofWall" id="heightofWall" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!--Building size ends here-->
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-account-check-outline"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Window and Door Information</div>
+                            <div class="bd-wizard-step-subtitle">Step 3</div>
+                        </div>
+                    </div>
+                </h3>
+                <section>
+                    <div class="content-wrapper">
+                        <h4 class="section-heading mb-5">Describe Window Information</h4>
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label for="noofWindows">Total no. of Windows - accross the elevation and
+                                    extension(s)</label>
+                                <select type="number" name="noofWindows" id="noofWindows" class="form-select" required
+                                    onchange="addWindows()">
+                                    <option value="">Select...</option>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                    <option value=4>4</option>
+                                    <option value=5>5</option>
+                                </select>
+
+                                <label>Use the image for reference</label>
+
+                                <img src="" id="windowsize" height="200" width="200" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="windowType">Window Type</label>
+                                <select name="windowType" id="windowType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Double glazed from 2020">Double glazed from 2020</option>
+                                    <option value="Double glazed">Double glazed</option>
+                                    <option value="Single glazed">Single glazed</option>
+                                    <option value="I dont know">I don't know the window type
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="row col-md-4" id="window">
+                                <!-- <div class="form-group col-md-4">
+                                    <label for="windowSize">Window Size</label>
+                                    <select name="windowSize" id="windowSize" class="form-select" required>
+                                        <option value="">Select...</option>
+                                        <option value="Small">Small</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Large">Large</option>
+                                    </select>
+                                </div> -->
+
+                                <!-- <div class="form-group col-md-4">
+                                    <label for="windowType">Window Type</label>
+                                    <select name="windowType" id="windowType" class="form-select" required>
+                                        <option value="">Select...</option>
+                                        <option value="Double glazed from 2020">Double glazed from 2020</option>
+                                        <option value="Double glazed">Double glazed</option>
+                                        <option value="Single glazed">Single glazed</option>
+                                        <option value="I dont know">I don't know the window type
+                                        </option>
+                                    </select>
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <div class="row"
+                            style="border: 2px solid mediumaquamarine; padding: 10px; border-radius: 5px; margin: 20px 0 20px 0;">
+                            <h4 class="section-heading" style="margin-bottom: 0% !important;">Door
+                                Information </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="noofDoors">No of Doors</label>
+                                <select type="number" name="noofDoors" id="noofDoors" class="form-select" required
+                                    onchange="addDoors()">
+                                    <option value="">Select...</option>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+                                    <option value=3>3</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="doorType">Door Type</label>
+                                <select name="doorType" id="doorType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="External">External</option>
+                                    <option value="Internal">Internal</option>
+                                </select>
+                            </div>
+
+                            <div class="row col-md-4" id="doors">
+
+                            </div>
+                            <!-- <div class="form-group col-md-4">
+                                <label for="doorSize">Door Size</label>
+                                <select name="doorSize" id="doorSize" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="doorType">Door Type</label>
+                                <select name="doorType" id="doorType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="External">External</option>
+                                    <option value="Internal">Internal</option>
+                                </select>
+                            </div> -->
+                        </div>
+                    </div>
+                </section>
+
+                <h3>
+                    <div class="media">
+                        <div class="bd-wizard-step-icon"><i class="mdi mdi-emoticon-outline"></i></div>
+                        <div class="media-body">
+                            <div class="bd-wizard-step-title">Roof and Floor Information</div>
+                            <div class="bd-wizard-step-subtitle">Step 4</div>
+                        </div>
+                    </div>
+                </h3>
+                <section>
+                    <div class="content-wrapper">
+                        <h4 class="section-heading mb-5">Enter Roof and Floor Information</h4>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="roofConstruction">Roof Construction</label>
+                                <select name="roofConstruction" id="roofConstruction" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Insulated horizontally from 2021">Insulated horizontally from 2021
+                                    </option>
+                                    <option value="Insulated horizontally from 2002 to 2021">Insulated horizontally from
+                                        2002 to 2021 </option>
+                                    <option value="Insulated horizontally from 1990 to 2002">Insulated horizontally from
+                                        1990 to 2002 </option>
+                                    <option value="Insulated on the slope from 2021">Insulated on the slope from 2021
+                                    </option>
+                                    <option value="Insulated on the slope from 2002 To 2021">Insulated on the slope from
+                                        2002 To 2021 </option>
+                                    <option value="Insulated on the slope from 1990 To 2001">Insulated on the slope from
+                                        1990 To 2001 </option>
+                                    <option value="'Central building Regulations: new build'">Central building Regulations: new build</option>
+                                    <option value="No insulation ">No insulation </option>
+                                    <option value="I dont know">I don't know the roof construction
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="floorType">Floor Type</label>
+                                <select name="floorType" id="floorType" class="form-select" required>
+                                    <option value="">Select...</option>
+                                    <option value="Insulated concrete 1990 above">Insulated concrete 1990 above</option>
+                                    <option value="Insulated Timber 1990 above">Insulated Timber 1990 above</option>
+                                    <option value="Timber un-insulated floor pre 1990">Timber un-insulated floor pre
+                                        1990</option>
+                                    <option value="Concrete uninsulated floor pre 1990">Concrete uninsulated floor pre
+                                        1990</option>
+                                    <option value="I dont know">I don't know the floor type</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+            <button type="submit" class="btn btn-info btn-lg" id="sendtobackend" style="display: none;">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgYKHZB_QKKLWfIRaYPCadza3nhTAbv7c"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="{{url_for('static', filename='/assets/js/jquery.steps.min.js')}}"></script>
+<script src="{{url_for('static', filename='/assets/js/bd-wizard.js')}}"></script>
+
+<script>
+    function buildSize() {
+        var propertyType = $('input[name="propertyType"]:checked').val();
+        var extensions = document.getElementById('extensionCount').value;
+
+        // alert('/img/buildingTypes/'+propertyType+extensions+'.png')
+        document.getElementById("buildsize").src = '/static/assets/img/buildingTypes/' + propertyType + extensions + '.png';
+        document.getElementById("windowsize").src = '/static/assets/img/buildingTypes/' + propertyType + extensions + '.png';
+
+        if (extensions == 0) {
+            document.getElementById("ext1").style.display = 'none';
+            document.getElementById("ext2").style.display = 'none';
+            document.getElementById("ext3").style.display = 'none';
+            document.getElementById("extH1").style.display = 'none';
+            document.getElementById("extH2").style.display = 'none';
+            document.getElementById("extH3").style.display = 'none';
+        } else if (extensions == 1) {
+            document.getElementById("ext1").style.display = 'block';
+            document.getElementById("ext2").style.display = 'none';
+            document.getElementById("ext3").style.display = 'none';
+            document.getElementById("extH1").style.display = 'block';
+            document.getElementById("extH2").style.display = 'none';
+            document.getElementById("extH3").style.display = 'none';
+        }
+        else if (extensions == 2) {
+            document.getElementById("ext1").style.display = 'block';
+            document.getElementById("ext2").style.display = 'block';
+            document.getElementById("ext3").style.display = 'none';
+            document.getElementById("extH1").style.display = 'block';
+            document.getElementById("extH2").style.display = 'block';
+            document.getElementById("extH3").style.display = 'none';
+        }
+        else if (extensions == 3) {
+            document.getElementById("ext1").style.display = 'block';
+            document.getElementById("ext2").style.display = 'block';
+            document.getElementById("ext3").style.display = 'block';
+            document.getElementById("extH1").style.display = 'block';
+            document.getElementById("extH2").style.display = 'block';
+            document.getElementById("extH3").style.display = 'block';
+        } else {
+            document.getElementById("ext1").style.display = 'none';
+            document.getElementById("ext2").style.display = 'none';
+            document.getElementById("ext3").style.display = 'none';
+            document.getElementById("extH1").style.display = 'none';
+            document.getElementById("extH2").style.display = 'none';
+            document.getElementById("extH3").style.display = 'none';
+        }
+    }
+</script>
+
+
+<script>
+    function addWindows() {
+        var noofwindows = document.getElementById("noofWindows").value;
+        // Select the div element with the ID 'window'
+        const windowDiv = document.getElementById('window');
+
+        // Clear the inner content of the windowDiv
+        windowDiv.innerHTML = '';
+        for (var i = 1; i <= noofwindows; i++) {
+            // Create a new HTML element to hold the block of code
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'row';
+
+            // Set the innerHTML of the new element to the provided code block
+            codeBlockDiv.innerHTML = '\
+<div class="form-group col-md-6">\
+  <label for="windowSize'+ i + '">Window Size ' + i + '</label>\
+  <select name="windowSize'+ i + '" id="windowSize' + i + '" class="form-select" required>\
+    <option value="">Select...</option>\
+    <option value="Small">Small</option>\
+    <option value="Medium">Medium</option>\
+    <option value="Large">Large</option>\
+  </select>\
+</div>'
+                ;
+            // Append the code block element to the 'window' div
+            windowDiv.appendChild(codeBlockDiv);
+        }
+    }
+</script>
+
+<script>
+    function addDoors() {
+        var noofdoors = document.getElementById("noofDoors").value;
+        // Select the div element with the ID 'window'
+        const doorDiv = document.getElementById('doors');
+
+        // Clear the inner content of the windowDiv
+        doorDiv.innerHTML = '';
+
+        for (var i = 1; i <= noofdoors; i++) {
+            // Create a new HTML element to hold the block of code
+            const codeBlockDiv = document.createElement('div');
+            codeBlockDiv.className = 'row';
+
+            // Set the innerHTML of the new element to the provided code block
+            codeBlockDiv.innerHTML = '\
+    <div class="form-group col-md-6">\
+                                <label for="doorSize'+ i + '">Door Size ' + i + '</label>\
+                                <select name="doorSize'+ i + '" id="doorSize' + i + '" class="form-select" required>\
+                                    <option value="">Select...</option>\
+                                    <option value="Small">Small</option>\
+                                    <option value="Medium">Medium</option>\
+                                    <option value="Large">Large</option>\
+                                </select>\
+                            </div>';
+
+            // Append the code block element to the 'window' div
+            doorDiv.appendChild(codeBlockDiv);
+        }
+    }
+</script>
+
+{% endblock %}

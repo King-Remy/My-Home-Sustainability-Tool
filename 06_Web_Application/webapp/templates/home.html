@@ -1,0 +1,78 @@
+{% extends "base.html" %} 
+{% block title %}Dashboard{% endblock %} 
+{% block content%}
+
+
+<div class="contents" style="padding: 74px 25px 72px 25px;">
+  <div class="demo2 mb-25 t-thead-bg">
+      <div class="container-fluid">
+          <div class="row ">
+              <div class="col-lg-12">
+                  <div class="breadcrumb-main">
+                      <h4 class="text-capitalize breadcrumb-title">Dashboard</h4>
+                      <div class="breadcrumb-action justify-content-center flex-wrap">
+                          
+                      </div>
+                  </div>
+              </div>
+
+              {% for building in buildings %}
+
+              <div class="col-xxl-3 col-sm-6  col-ssm-12 mb-25">
+                <div
+                    class="ap-po-details ap-po-details--luodcy  overview-card-shape radius-xl d-flex justify-content-between">
+                    <div class=" ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                        <div class="ap-po-details__titlebar">
+                           
+                            <h1>{{building.projectName}}</h1>
+                            <p>Address: {{building.propertyAddress}} </p>
+                            <p>Post Code: {{building.postCode}} </p>
+                            <!-- <p>EPC Rating: A</p> -->
+                            <p>Heatloss: 773</p>
+                            <p>Energy Efficiency: 664</p>
+                            <p><a href="/building/result?id={{building.id}}">View full summary..</a></p>
+                
+                        </div>
+                        <div class="ap-po-details__icon-area color-primary">
+                            <i class="uil uil-arrow-growth"></i>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              {% endfor %} 
+
+          <div class="col-xxl-3 col-sm-6  col-ssm-12 mb-25">
+            <a href="/building">
+            <div
+                class="ap-po-details ap-po-details--luodcy  overview-card-shape radius-xl d-flex justify-content-between">
+                <div class=" ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                    <div class="ap-po-details__titlebar">
+                      <br>
+                      <br>
+                      <br>
+                        <h1>Add New </h1>
+                        <p>Click here to add a new building</p>
+                       <br>
+                       <br>
+            
+                    </div>
+                    <div class="ap-po-details__icon-area color-success">
+                        <i class="uil uil-plus"></i>
+                    </div>
+                </div>
+            </div>
+          </a>
+        </div>
+
+            </div>
+
+          </div>
+
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

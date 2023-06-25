@@ -4,15 +4,11 @@
 ## ✅ Technologies and libraries used
 | Name  | Brief |
 | ------------- | ------------- |
-| Streamlit  |  *An open source app framework for building beautiful data and ML apps* |
 | Numpy  | *Python library for numerical computation*  |
 | Pandas | *Python library for data manipulation and analysis* |
 | JSON | *Python library using JSON API client library*|
 | datetime | *Python library using new date and time classes* |
 | XGBoost | *Python library using XGBoost Python Package*|
-| time | *Python library using time module*|
-| itertools | *Python library itertools module*|
-| Scipy | *An open-source software for mathematics, science, and engineering*|
 | Matplotlib | *Python library for creating static, animated, and interactive visualizations*|
 | Seabron | *Python library based on matplotlib*|
 | Scikit-learn | *Python library for machine learning*|
@@ -69,12 +65,27 @@ python3 -m pip install pip --upgrade
 python3 -m pip install -r requirements.txt
 ```
 
-Next, start running from 01_import/01_import_data.ipynb each file from 01_import to /03_Baseline_Model /01_Baseline_Model_XGB.ipynb as shown in the folder structure table above.
+Next, start running from 01_import/01_import_data.ipynb each file from 01_import to /03_Baseline_Model /01_Baseline_Model_XGB.ipynb as shown in the folder structure table above to get energy efficiency XGBoost model predictions.
 
 ## ✅ Web Application Usage
 
 This section will cover all the features, including a step-by-step guide of how the web application functions, the frameworks used and its security in developing the web application. Below demonstrates how the web application is used to obtain heat loss and energy efficiency of a building.
 
+
+Firstly,
+``` 
+Ensure training data set used for the ML model and keep it for predicting energy efficiency when running main.py file in /06_Web_Application https://drive.google.com/file/d/14Gw9e4qoAEwvBLm-pEQ7WOtn8Q6eD1Rb/view?usp=drive_link
+```
+
+Next, 
+```
+Update file directory of Machine Learning model and training data set for ML model in /06_Web_Application/views/predicitonHelpers.py.
+```
+
+Next,
+```
+Run main.py in /06_Web_Application/main.py to promt local host for web application.
+```
 
 **1.	User enters the landing page where they can sign in or register an account.**
 ![image1](/Assets/image1.png)

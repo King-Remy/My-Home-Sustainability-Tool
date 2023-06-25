@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Heatloss Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{url_for('static', filename='/assets/css/plugin.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='/assets/css/style.css')}}">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='/assets/img/favicon.png')}}">
+
+  <link rel="stylesheet" href="{{url_for('static', filename='/assets/css/line.css')}}">
+
+</head>
+
+<body>
+    <main class="main-content">
+        <div class="admin">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-5 col-xl-6 col-md-6 col-sm-8">
+                        <div class="edit-profile">
+                            <div class="edit-profile__logos">
+                                <a href="#">
+                                    <img class="dark" src="{{ url_for('static', filename='/assets/img/logo-dark.png')}}" alt>
+                                    <img class="light" src="{{ url_for('static', filename='/assets/img/logo-white.png')}}" alt>
+                                </a>
+                            </div>
+                            <div class="card border-0">
+                                <div class="card-header">
+                                    <div class="edit-profile__title">
+                                        <h6>Sign Up for HeatLoss Calculator</h6>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="edit-profile__body">
+                                        {% with messages = get_flashed_messages() %}
+                                        {% if messages %}
+                                            <div class="notification is-danger" style="color: red; font-weight: bold;">
+                                                {{ messages[0] }}
+                                            </div>
+                                        {% endif %}
+                                        {% endwith %}
+                                        <div class="edit-profile__body">
+                                          <form method="POST" >
+                                            <div class="form-group mb-20">
+                                                <label for="firstname">First Name</label>
+                                                <input type="text" class="form-control" id="firstName" name="firstName" 
+                                                    placeholder="First Name">
+                                            </div>
+                                            <div class="form-group mb-20">
+                                                <label for="lastName">Last Name</label>
+                                                <input type="text" class="form-control" id="lastName" name="lastName" 
+                                                    placeholder="Username">
+                                            </div>
+                                            <div class="form-group mb-20">
+                                              <label for="location">Location</label>
+                                              <input type="text" class="form-control" id="location" name="location" 
+                                                  placeholder="e.g. Staffordshire">
+                                          </div>
+
+                                          <div class="form-group mb-20">
+                                            <label for="postcode">Post Code</label>
+                                            <input type="text" class="form-control" id="postcode" name="postcode" 
+                                                placeholder="Post Code">
+                                        </div>
+
+                                            <div class="form-group mb-20">
+                                                <label for="email">Email Adress</label>
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    placeholder="name@example.com">
+                                            </div>
+                                            <div class="form-group mb-20">
+                                              <label for="phone">Phone Number</label>
+                                              <input type="text" class="form-control" id="phone" name="phone" 
+                                                  placeholder="Phone Number">
+                                          </div>
+                                            <div class="form-group mb-15">
+                                                <label for="password-field">password</label>
+                                                <div class="position-relative">
+                                                    <input id="password1" type="password" class="form-control"
+                                                        name="password1" placeholder="Password">
+                                                    <div
+                                                        class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-15">
+                                              <label for="password-field">confirm password</label>
+                                              <div class="position-relative">
+                                                  <input id="password2" type="password" class="form-control"
+                                                      name="password2" placeholder="Confirm Password">
+                                                  <div
+                                                      class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                            <div class="admin-condition">
+                                                <div class="checkbox-theme-default custom-checkbox ">
+                                                    <input class="checkbox" type="checkbox" id="admin-1">
+                                                    <label for="admin-1">
+                                                        <span class="checkbox-text">Creating an account means you’re
+                                                            okay
+                                                            with our <a href="#" class="color-primary">Terms of
+                                                                Service</a> and <a href="#"
+                                                                class="color-primary">Privacy
+                                                                Policy</a>
+                                                            my preference</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                                                <button type="submit"
+                                                    class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
+                                                    Create Account
+                                                </button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                    </div>
+                                </div>
+                             
+                                <div class="admin-topbar">
+                                    <p class="mb-0">
+                                        Don't have an account?
+                                        <a href="{{ url_for('auth.login') }}"  class="color-primary">
+                                            Sign In
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="overlayer">
+        <div class="loader-overlay">
+            <div class="dm-spin-dots spin-lg">
+                <span class="spin-dot badge-dot dot-primary"></span>
+                <span class="spin-dot badge-dot dot-primary"></span>
+                <span class="spin-dot badge-dot dot-primary"></span>
+                <span class="spin-dot badge-dot dot-primary"></span>
+            </div>
+        </div>
+    </div>
+    <div class="enable-dark-mode dark-trigger">
+        <ul>
+            <li>
+                <a href="#">
+                    <i class="uil uil-moon"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script src="{{url_for('static', filename='/assets/js/plugins.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/assets/js/script.min.js')}}"></script>
+
+</body>
+
+
+</html>
