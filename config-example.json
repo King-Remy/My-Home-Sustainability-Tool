@@ -1,5 +1,6 @@
 {
   "DEFAULT": {
+    "import_path": "C:/Users/KingRemy/OneDrive - University of Keele/Documents/SEND/DATASETS/all-domestic-EPC",
     "epc_path": "C:/Users/KingRemy/OneDrive - University of Keele/Documents/SEND/DATASETS/EPCs",
     "polygon_path": "",
     "epc_chaid_fname": "CHAID",
