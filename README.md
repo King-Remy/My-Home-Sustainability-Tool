@@ -32,7 +32,7 @@ git clone https://github.com/King-Remy/Energy-Efficiency-and-Heat-Loss-Tool.git
 | /02_Preprocessing/02_Data_audit.ipynb | *This script takes an audit of the EPC data for England. It looks at how many missing values each feature has, how many unique values the categorical features have then applies preprocessing steps to remove outliers and drop features with too many missing values.*|
 | /02_Preprocessing/03_corr_and_chi2.ipynb | *This script finds the correlations between numerical features of the EPC data and performs a chi-squared test on all EPC variables.* |
 | /02_Preprocessing/04_Categorical_cleanup.ipynb | *This script performs exploratory data analysis on the dataset.*|
-| /02_Preprocessing/05_CHAID.ipynb | *The EPC data contains several categorical variables with a lot of values. In order to find suitable features which will retain the most information, three feature sets were combines: 1) Data driven 2) Domain driven 3) Exhaustive driven *|
+| /02_Preprocessing/05_CHAID.ipynb | *The EPC data contains several categorical variables with a lot of values. In order to find suitable features which will retain the most information, three feature sets were combines: 1) Data driven 2) Domain driven 3) Exhaustive driven.*|
 | /03_Baseline_Model/01_Baseline_Model_Logi.ipynb | *This script applies a linear regression model the data and domain driven feature set, given a baseline performance for comparison.*|
 | /03_Baseline_Model/01_Baseline_Model_XGB.ipynb | *This script applies an XGBoost model with the data and domain driven feature set, given a baseline performance for comparison.*|
 | /04_Machine_Learning /Modelling.ipynb | *Three different supervised learning classification models are assessed to understand how well they could predict energy efficiency. Linear regression is selected as the baseline and the variance score (R2) as the quality measure used to assess the models.*|
@@ -100,12 +100,12 @@ This section will cover all the features, including a step-by-step guide of how 
 **8.	On the result page, a summary of the building information inputs, heat loss for each section of the building and the energy efficiency band and rating is produced.**
 ![image8](/Assets/image8.png)
 
-Building summary based off user inputs shown above with an edit button to make changes and resubmit form.
+* Building summary based off user inputs shown above with an edit button to make changes and resubmit form.
 
 ![image9](/Assets/image9.png)
 
-Heat loss summary for each section of the building
+* Heat loss summary for each section of the building
 
 ![image10](/Assets/image10.png)
 
-Displays building’s energy efficiency rating and band score.
+* Displays building’s energy efficiency rating and band score.
