@@ -74,7 +74,10 @@ This section will cover all the features, including a step-by-step guide of how 
 
 Firstly,
 ``` 
-Ensure training data set used for the ML model and keep it for predicting energy efficiency when running main.py file in /06_Web_Application https://drive.google.com/file/d/14Gw9e4qoAEwvBLm-pEQ7WOtn8Q6eD1Rb/view?usp=drive_link
+Ensure training data set used for the ML model and keep it for predicting energy efficiency when running main.py file in /06_Web_Application
+```
+```
+https://drive.google.com/file/d/14Gw9e4qoAEwvBLm-pEQ7WOtn8Q6eD1Rb/view?usp=drive_link
 ```
 
 Next, 
