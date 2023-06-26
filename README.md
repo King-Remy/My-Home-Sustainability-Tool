@@ -16,7 +16,7 @@
 ## ✅ Python Dependencies Installation
 To get started, clone the Git repo onto your laptop using this command on your terminal in your preferred directory:
 ```
-git clone https://github.com/King-Remy/Energy-Efficiency-and-Heat-Loss-Tool.git
+git clone https://github.com/King-Remy/My-Home-Sustainability-Tool.git
 ```
 
 ### Folder Structure
